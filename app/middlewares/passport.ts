@@ -43,9 +43,7 @@ export const googleStrategy = ()=>{
     clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,
     callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/google/callback"
   },
-  async (accessToken, refreshToken, profile, done) =>{
-     
-     
+  async (accessToken, refreshToken, profile, done) =>{     
      const newUser = {
       id: profile.id,
       username: profile.displayName,

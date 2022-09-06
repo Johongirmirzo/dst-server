@@ -2,6 +2,7 @@ import {Request, Response, NextFunction, Router} from "express"
 import bcrypt from "bcrypt"
 import User, {UserDocument} from "../models/User"
 import {generateToken} from "../utils";
+import jwt from "jsonwebtoken";
 
 const router = Router();
 
@@ -34,28 +35,28 @@ const UserController = {
                 email,
                 password: hashedPassword
             })
-            res.status(201).send({message: "User is successfully created"})  
+            res.status(201).json({message: "User is successfully created"})  
         }catch(err){
             next(err)
         }
     },
     loginUser: async (req: Request, res: Response) => {
         const currentUser = req.user as UserDocument; 
-        const accessToken = generateToken({id: currentUser._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
-        const refreshToken = generateToken({id: currentUser._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
+        const accessToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
+        const refreshToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
         console.log(process.env.REFRESH_TOKEN_EXPIRATION_TIME, process.env.REFRESH_TOKEN_EXPIRATION_TIME);
-        res.status(200).send({id:currentUser._id, accessToken, refreshToken, username: currentUser.username});
+        res.status(200).json({id:currentUser._id, accessToken, refreshToken, username: currentUser.username});
     },
     loginFailed: (req: Request, res: Response)=>{
         res.status(401).json({error: true, message: "Log in Failure"})
     },
     loginSuccess: async (req: Request, res: Response)=>{
         const currentUser = req.user as AuthProviderData;
-        const accessToken = generateToken({id: currentUser._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
-        const refreshToken = generateToken({id: currentUser._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
-        console.log(currentUser.username,  "Current Username")
-        console.log(req.user, "Loggin via Passport Middlewares")
-        res.status(200).send({id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username});
+        const accessToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
+        const refreshToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
+        console.log("Current Username:", currentUser.username)
+        console.log("User Token", {id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username})
+        res.status(200).json({id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username});
     },
     logoutUser: (req: Request, res: Response, next: NextFunction)=> {
         req.logout((err)=> {

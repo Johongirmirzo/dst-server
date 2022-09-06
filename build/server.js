@@ -23,6 +23,7 @@ const app = (0, express_1.default)();
     (0, passport_2.linkedinStrategy)();
     (0, passport_2.facebookStrategy)();
 })();
+// app.use(cors());
 app.use((0, cors_1.default)({
     origin: "https://daily-sleep-tracker.netlify.app",
     methods: "GET,POST,PUT,DELETE",
@@ -41,8 +42,6 @@ app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
 app.use("/auth", auth_1.default);
 app.use("/api/sleepEntry", sleepEntry_1.default);
-console.log(process.env.MONGODB_URL);
-console.log("WOOOOORRKKING!");
 const PORT = process.env.PORT || 5500;
 app.listen(PORT, () => {
     (0, index_1.connectDB)();

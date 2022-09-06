@@ -11,8 +11,6 @@ import sleepEntry from "./routes/sleepEntry";
 import {connectDB} from "./database/index"
 import {localStrategy, googleStrategy, linkedinStrategy, facebookStrategy} from "./middlewares/passport";
 
-
-
 const app = express();
 
 // authenticate user through passport strategy
@@ -23,6 +21,7 @@ const app = express();
     facebookStrategy();
 })()
  
+// app.use(cors());
 app.use(cors({
     origin: "https://daily-sleep-tracker.netlify.app",
     methods: "GET,POST,PUT,DELETE",
@@ -37,17 +36,15 @@ app.use(session({
     secret: `${process.env.SESSION_SECRET}`, 
     resave: false, 
     saveUninitialized: false,
-    store: MongoStore.create({mongoUrl: process.env.MONGODB_URL})
+    store: MongoStore.create({mongoUrl: process.env.MONGODB_URL}) 
 }))
 app.use(passport.initialize());
 app.use(passport.session());
  
-
 app.use("/auth", auth)
 app.use("/api/sleepEntry", sleepEntry)
 
-console.log(process.env.MONGODB_URL)
-console.log("WOOOOORRKKING!")
+ 
 const PORT = process.env.PORT || 5500;
 app.listen(PORT, ()=>{
     connectDB()
