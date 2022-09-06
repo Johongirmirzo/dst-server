@@ -23,7 +23,6 @@ const app = (0, express_1.default)();
     (0, passport_2.linkedinStrategy)();
     (0, passport_2.facebookStrategy)();
 })();
-console.log(process.env.MONGODB_URL);
 app.use((0, cors_1.default)({
     origin: "https://daily-sleep-tracker.netlify.app",
     methods: "GET,POST,PUT,DELETE",

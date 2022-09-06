@@ -17,7 +17,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const User_1 = __importDefault(require("../models/User"));
 const utils_1 = require("../utils");
 const router = (0, express_1.Router)();
-const RegisterController = {
+const UserController = {
     registerUser: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const { username, email, password } = req.body;
@@ -72,4 +72,4 @@ const RegisterController = {
         });
     }
 };
-exports.default = RegisterController;
+exports.default = UserController;

@@ -22,8 +22,7 @@ const app = express();
     linkedinStrategy();
     facebookStrategy();
 })()
-
-console.log(process.env.MONGODB_URL)
+ 
 app.use(cors({
     origin: "https://daily-sleep-tracker.netlify.app",
     methods: "GET,POST,PUT,DELETE",

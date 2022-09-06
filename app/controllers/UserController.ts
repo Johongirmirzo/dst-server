@@ -9,7 +9,7 @@ interface AuthProviderData extends UserDocument {
     displayName: string;
   }
 
-const RegisterController = {
+const UserController = {
     registerUser: async (req: Request, res: Response, next: NextFunction) => {     
         try {
             const {username, email, password} = req.body;
@@ -66,4 +66,4 @@ const RegisterController = {
     }
 }
 
-export default RegisterController
+export default UserController
