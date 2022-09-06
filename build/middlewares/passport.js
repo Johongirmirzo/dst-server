@@ -53,7 +53,7 @@ const googleStrategy = () => {
     passport_1.default.use(new passport_google_oauth20_1.Strategy({
         clientID: `${process.env.GOOGLE_CLIENT_ID}`,
         clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,
-        callbackURL: "http://localhost:5500/auth/google/callback"
+        callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/google/callback"
     }, (accessToken, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
         const newUser = {
             id: profile.id,
@@ -98,7 +98,7 @@ const linkedinStrategy = () => {
     passport_1.default.use(new passport_linkedin_oauth2_1.Strategy({
         clientID: `${process.env.LINKEDIN_CLIENT_ID}`,
         clientSecret: `${process.env.LINKEDIN_CLIENT_SECRET}`,
-        callbackURL: "http://localhost:5500/auth/linkedin/callback",
+        callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/linkedin/callback",
         scope: ['r_emailaddress', 'r_liteprofile']
     }, (accessToken, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
         const newUser = {
@@ -145,7 +145,7 @@ const facebookStrategy = () => {
     passport_1.default.use(new passport_facebook_1.Strategy({
         clientID: `${process.env.FACEBOOK_CLIENT_ID}`,
         clientSecret: `${process.env.FACEBOOK_CLIENT_SECRET}`,
-        callbackURL: "http://localhost:5500/auth/facebook/callback",
+        callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/facebook/callback",
         profileFields: ['id', 'emails', 'name', "displayName"]
     }, (accessToken, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
         const newUser = {
