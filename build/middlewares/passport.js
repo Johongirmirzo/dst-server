@@ -39,7 +39,7 @@ const localStrategy = () => {
     });
     passport_1.default.deserializeUser((id, done) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            console.log(id, "Passport Local Deserialize");
+            // console.log(id, "Passport Local Deserialize");
             const user = yield User_1.default.findById(id);
             done(null, user);
         }
