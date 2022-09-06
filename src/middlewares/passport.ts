@@ -68,7 +68,7 @@ export const googleStrategy = ()=>{
   }
 ));
 passport.serializeUser((user: any, done)=>{
-  // console.log(user._id, "Passport Google Serializeeee");
+  console.log(user._id, "Passport Google Serializeeee");
   done(null, user._id);
 });
 
