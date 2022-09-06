@@ -24,7 +24,7 @@ const app = (0, express_1.default)();
     (0, passport_2.facebookStrategy)();
 })();
 app.use((0, cors_1.default)({
-    origin: "https://daily-sleep-trackker.herokuapp.com",
+    origin: "https://daily-sleep-tracker.netlify.app",
     methods: "GET,POST,PUT,DELETE",
     credentials: true
 }));
@@ -40,6 +40,7 @@ app.use((0, express_session_1.default)({
 }));
 app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
+console.log(23);
 app.use("/auth", auth_1.default);
 app.use("/api/sleepEntry", sleepEntry_1.default);
 console.log("WOOOOOORRRKKING!");

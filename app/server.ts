@@ -24,7 +24,7 @@ const app = express();
 })()
 
 app.use(cors({
-    origin: "https://daily-sleep-trackker.herokuapp.com",
+    origin: "https://daily-sleep-tracker.netlify.app",
     methods: "GET,POST,PUT,DELETE",
     credentials: true
 }));
@@ -42,7 +42,7 @@ app.use(session({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
-
+    console.log(23)
 
 app.use("/auth", auth)
 app.use("/api/sleepEntry", sleepEntry)
