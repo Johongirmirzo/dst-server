@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
-    "start": "node src/server",
-    "dev": "nodemon --config nodemon.json src/server"
+    "start": "node app/src/server",
+    "dev": "nodemon --config nodemon.json app/src/server"
   },
   "keywords": [],
   "author": "",
