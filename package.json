@@ -5,7 +5,8 @@
   "main": "server.ts",
   "scripts": {
     "start": "node app/server",
-    "dev": "nodemon --config nodemon.json app/server"
+    "dev": "nodemon --config nodemon.json app/server",
+    "postinstall": "tsc"
   },
   "keywords": [],
   "author": "",

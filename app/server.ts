@@ -24,7 +24,7 @@ const app = express();
 })()
 
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: "https://daily-sleep-trackker.herokuapp.com",
     methods: "GET,POST,PUT,DELETE",
     credentials: true
 }));
@@ -37,7 +37,7 @@ app.use(session({
     secret: `${process.env.SESSION_SECRET}`, 
     resave: false, 
     saveUninitialized: false,
-    store: MongoStore.create({mongoUrl: process.env.MONGODB_URL ||  "mongodb://localhost/dst"})
+    store: MongoStore.create({mongoUrl: process.env.MONGODB_URL || "mongodb://localhost/dst"})
 }))
 app.use(passport.initialize());
 app.use(passport.session());
@@ -46,6 +46,7 @@ app.use(passport.session());
 app.use("/auth", auth)
 app.use("/api/sleepEntry", sleepEntry)
 
+console.log("WOOOOOORRRKKING!")
 const PORT = process.env.PORT || 5500;
 app.listen(PORT, ()=>{
     connectDB()
