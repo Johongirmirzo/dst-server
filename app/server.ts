@@ -38,11 +38,12 @@ app.use(session({
     secret: `${process.env.SESSION_SECRET}`, 
     resave: false, 
     saveUninitialized: false,
-    store: MongoStore.create({mongoUrl: process.env.MONGODB_URL || "mongodb://localhost/dst"})
+    store: MongoStore.create({mongoUrl: process.env.MONGODB_URL})
 }))
 app.use(passport.initialize());
 app.use(passport.session());
  
+
 app.use("/auth", auth)
 app.use("/api/sleepEntry", sleepEntry)
 

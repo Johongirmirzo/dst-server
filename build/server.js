@@ -36,7 +36,7 @@ app.use((0, express_session_1.default)({
     secret: `${process.env.SESSION_SECRET}`,
     resave: false,
     saveUninitialized: false,
-    store: connect_mongo_1.default.create({ mongoUrl: process.env.MONGODB_URL || "mongodb://localhost/dst" })
+    store: connect_mongo_1.default.create({ mongoUrl: process.env.MONGODB_URL })
 }));
 app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
