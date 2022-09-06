@@ -48,7 +48,7 @@ app.use("/auth", auth)
 app.use("/api/sleepEntry", sleepEntry)
 
 console.log(process.env.MONGODB_URL)
-console.log("WOOOOOORRRKKING!")
+console.log("WOOOOORRKKING!")
 const PORT = process.env.PORT || 5500;
 app.listen(PORT, ()=>{
     connectDB()
