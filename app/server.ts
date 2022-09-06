@@ -21,12 +21,12 @@ const app = express();
     facebookStrategy();
 })()
  
-// app.use(cors());
-app.use(cors({
-    origin: "https://daily-sleep-tracker.netlify.app",
-    methods: "GET,POST,PUT,DELETE",
-    credentials: true
-}));
+app.use(cors());
+// app.use(cors({
+//     origin: "https://daily-sleep-tracker.netlify.app",
+//     methods: "GET,POST,PUT,DELETE",
+//     credentials: true
+// }));
  
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

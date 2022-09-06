@@ -44,7 +44,10 @@ const UserController = {
         const currentUser = req.user as UserDocument; 
         const accessToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
         const refreshToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
-        console.log(process.env.REFRESH_TOKEN_EXPIRATION_TIME, process.env.REFRESH_TOKEN_EXPIRATION_TIME);
+        console.log("Login Success and req.user", req.user);
+        console.log("Login Success and currentUser", currentUser);
+        console.log("Current Username:", currentUser.username)
+        console.log("User Token", {id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username})
         res.status(200).json({id:currentUser._id, accessToken, refreshToken, username: currentUser.username});
     },
     loginFailed: (req: Request, res: Response)=>{
@@ -54,6 +57,8 @@ const UserController = {
         const currentUser = req.user as AuthProviderData;
         const accessToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
         const refreshToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
+        console.log("Login Success and req.user", req.user);
+        console.log("Login Success and currentUser", currentUser);
         console.log("Current Username:", currentUser.username)
         console.log("User Token", {id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username})
         res.status(200).json({id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username});
