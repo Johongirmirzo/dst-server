@@ -22,7 +22,7 @@ export const localStrategy = ()=>{
         }
     }));
     passport.serializeUser((user: any, done)=>{
-      // console.log(user._id, user, "Passport Local Serialize")
+      console.log(user._id, user, "Passport Local Serialize")
       done(null, user._id);
     });
     
