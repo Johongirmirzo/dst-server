@@ -42,8 +42,7 @@ app.use(session({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
-    console.log(23)
-
+ 
 app.use("/auth", auth)
 app.use("/api/sleepEntry", sleepEntry)
 

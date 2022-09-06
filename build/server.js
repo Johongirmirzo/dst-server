@@ -40,7 +40,6 @@ app.use((0, express_session_1.default)({
 }));
 app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
-console.log(23);
 app.use("/auth", auth_1.default);
 app.use("/api/sleepEntry", sleepEntry_1.default);
 console.log("WOOOOOORRRKKING!");
