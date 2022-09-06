@@ -53,7 +53,7 @@ export const googleStrategy = ()=>{
       password: await bcrypt.hash(Date.now().toString(), 10),
       authProvider: profile.provider
      }
-    //  console.log(profile.id, profile.displayName, "Google Strategy");
+     console.log(profile.id, profile.displayName, "Google Strategy");
      try {
        let user = await User.findOne({id: profile.id});
        if(user){
