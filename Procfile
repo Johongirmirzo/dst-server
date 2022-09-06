@@ -1,1 +1,1 @@
-web: ts-node /app/server.ts
+web: ts-node server.ts
