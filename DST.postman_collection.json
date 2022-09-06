@@ -1,0 +1,393 @@
+{
+	"info": {
+		"_postman_id": "c25414d4-b491-455a-83e6-225e2e358a1a",
+		"name": "DST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17249289"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "http://localhost:5500/api/auth/register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "Johon",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "johon@s.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12355",
+									"type": "text"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "12355",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5500/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5500",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:5500/auth/login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvaG9uIiwiaWF0IjoxNjYyMTA0ODgzLCJleHAiOjE2NjIxMDU3ODN9.QncvQRNnKEewzYUXLCQTyIVtOLRoZYDfqDFeFYk40BM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-refresh-token",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvaG9uIiwiaWF0IjoxNjYyMTA0ODgzLCJleHAiOjE2OTM2NjI0ODN9.yz38C8gp1qNEXEVuYu_rL7FKhgsJpejRALNBzrt7kYk",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "jaxon@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "qweqwe",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5500/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5500",
+							"path": [
+								"auth",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "johon@s.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "12355",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:5500/auth/logout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5500/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5500",
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SleepEntry",
+			"item": [
+				{
+					"name": "http://localhost:5500/api/sleepEntry/addSleepEntry",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const moment = require(\"moment\");\r",
+									"pm.globals.set(\"CurrentDateTime\", moment().format())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTA4YTY2Yzg2Zjc3YjFhODA1ZDVjMCIsInVzZXJuYW1lIjoiSm9ob24iLCJpYXQiOjE2NjIxMjk0NjIsImV4cCI6MTY2MjEzMzA2Mn0.GdyC1t1DrEXBzw46pGB9ly54iU3v7qO27VwgQes1n_Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-refresh-token",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTA4YTY2Yzg2Zjc3YjFhODA1ZDVjMCIsInVzZXJuYW1lIjoiSm9ob24iLCJpYXQiOjE2NjIxMjk0NjIsImV4cCI6MTY5MzY4NzA2Mn0.89ZNvnHG5UJ1mPf0cUmsK4xlc2o-o6lBg6E4SlR0YOU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "timeOfSleep",
+									"value": "01:30",
+									"type": "text"
+								},
+								{
+									"key": "wakeupTime",
+									"value": "12:00",
+									"type": "text"
+								},
+								{
+									"key": "sleepDate",
+									"value": "{{CurrentDateTime}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}api/sleepEntry/addSleepEntry",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"sleepEntry",
+								"addSleepEntry"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:5500/api/sleepEntry/getAllSleepEntries",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTVlZWViY2RjYTFkNDQxMDEwOWY0MCIsInVzZXJuYW1lIjoiSm9ob25naXIgUmFoaW1vdiIsImlhdCI6MTY2MjQzODMwNiwiZXhwIjoxNjYyNDQxOTA2fQ.a72d77hC_MND_VBV-7vPqbrp1hplxyavwGwvehq0Nog",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-refresh-token",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTA4YTY2Yzg2Zjc3YjFhODA1ZDVjMCIsInVzZXJuYW1lIjoiSm9ob24iLCJpYXQiOjE2NjIxMjk0NjIsImV4cCI6MTY5MzY4NzA2Mn0.89ZNvnHG5UJ1mPf0cUmsK4xlc2o-o6lBg6E4SlR0YOU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}api/sleepEntry/getAllSleepEntries",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"sleepEntry",
+								"getAllSleepEntries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:5500/api/sleepEntry/getSleepEntry/631317de001d56e005c32cde",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTA4YTY2Yzg2Zjc3YjFhODA1ZDVjMCIsInVzZXJuYW1lIjoiSm9ob24iLCJpYXQiOjE2NjIxMjk0NjIsImV4cCI6MTY2MjEzMzA2Mn0.GdyC1t1DrEXBzw46pGB9ly54iU3v7qO27VwgQes1n_Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-refresh-token",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTA4YTY2Yzg2Zjc3YjFhODA1ZDVjMCIsInVzZXJuYW1lIjoiSm9ob24iLCJpYXQiOjE2NjIxMjk0NjIsImV4cCI6MTY5MzY4NzA2Mn0.89ZNvnHG5UJ1mPf0cUmsK4xlc2o-o6lBg6E4SlR0YOU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}api/sleepEntry/getSleepEntry/631317c9001d56e005c32cd8",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"sleepEntry",
+								"getSleepEntry",
+								"631317c9001d56e005c32cd8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:5500/api/sleepEntry/edit/6312fd94a269a1975c6fb368",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTA4YTY2Yzg2Zjc3YjFhODA1ZDVjMCIsInVzZXJuYW1lIjoiSm9ob24iLCJpYXQiOjE2NjIxMjk0NjIsImV4cCI6MTY2MjEzMzA2Mn0.GdyC1t1DrEXBzw46pGB9ly54iU3v7qO27VwgQes1n_Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-refresh-token",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTA4YTY2Yzg2Zjc3YjFhODA1ZDVjMCIsInVzZXJuYW1lIjoiSm9ob24iLCJpYXQiOjE2NjIxMjk0NjIsImV4cCI6MTY5MzY4NzA2Mn0.89ZNvnHG5UJ1mPf0cUmsK4xlc2o-o6lBg6E4SlR0YOU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "timeOfSleep",
+									"value": "00:59",
+									"type": "text"
+								},
+								{
+									"key": "wakeupTime",
+									"value": "00:59",
+									"type": "text"
+								},
+								{
+									"key": "sleepDate",
+									"value": "{{CurrentDateTime}}",
+									"type": "text"
+								},
+								{
+									"key": "cu",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}api/sleepEntry/edit/63131cf8c1d5ca04121d8f96",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"sleepEntry",
+								"edit",
+								"63131cf8c1d5ca04121d8f96"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:5500/api/sleepEntry/delete/63131725ee349182987bebe0",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTA4YTY2Yzg2Zjc3YjFhODA1ZDVjMCIsInVzZXJuYW1lIjoiSm9ob24iLCJpYXQiOjE2NjIxMjk0NjIsImV4cCI6MTY2MjEzMzA2Mn0.GdyC1t1DrEXBzw46pGB9ly54iU3v7qO27VwgQes1n_Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-refresh-token",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTA4YTY2Yzg2Zjc3YjFhODA1ZDVjMCIsInVzZXJuYW1lIjoiSm9ob24iLCJpYXQiOjE2NjIxMjk0NjIsImV4cCI6MTY5MzY4NzA2Mn0.89ZNvnHG5UJ1mPf0cUmsK4xlc2o-o6lBg6E4SlR0YOU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}api/sleepEntry/delete/631317e3001d56e005c32ce1",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"sleepEntry",
+								"delete",
+								"631317e3001d56e005c32ce1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
