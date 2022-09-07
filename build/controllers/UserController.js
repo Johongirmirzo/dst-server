@@ -60,7 +60,7 @@ const UserController = {
     },
     loginSuccess: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const currentUser = req.user;
-        console.log("Login Success above if", currentUser);
+        console.log("Login Success  above if", currentUser);
         req.logIn(User_1.default, err => {
             if (err)
                 return next(err);
@@ -72,11 +72,6 @@ const UserController = {
             console.log("Login Success User Token", { id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username });
             res.status(200).send({ id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username });
         });
-        if (currentUser) {
-        }
-        else {
-            res.status(404).json({ message: "Internal Server Error" });
-        }
     }),
     logoutUser: (req, res, next) => {
         req.logout((err) => {
