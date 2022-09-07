@@ -10,7 +10,6 @@ const passport_1 = __importDefault(require("passport"));
 const express_session_1 = __importDefault(require("express-session"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const connect_mongo_1 = __importDefault(require("connect-mongo"));
-const cors_1 = __importDefault(require("cors"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const sleepEntry_1 = __importDefault(require("./routes/sleepEntry"));
 const index_1 = require("./database/index");
@@ -23,7 +22,13 @@ const app = (0, express_1.default)();
     (0, passport_2.linkedinStrategy)();
     (0, passport_2.facebookStrategy)();
 })();
-app.use((0, cors_1.default)());
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+    next();
+});
+// app.use(cors());
 // app.use(cors({
 //     origin: "http://localhost:3000",
 //     methods: "GET,POST,PUT,DELETE",
