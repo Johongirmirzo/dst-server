@@ -42,7 +42,7 @@ export const localStrategy = ()=>{
 //   },
 //   async (accessToken, refreshToken, profile, done) =>{     
 //      const newUser = {
-//       googleId: profile.id,
+//       id: profile.id,
 //       username: profile.displayName,
 //       email: profile._json.email,
 //       password: await bcrypt.hash(Date.now().toString(), 10),
@@ -84,7 +84,7 @@ export const localStrategy = ()=>{
 //     scope: ['r_emailaddress', 'r_liteprofile']
 //   }, async (accessToken, refreshToken, profile, done)=> {
 //     const newUser = {
-//       linkedIn: profile.id,
+//       id: profile.id,
 //       username: profile.displayName,
 //       email: profile.emails[0].value,
 //       password: await bcrypt.hash(Date.now().toString(), 10),
@@ -132,7 +132,7 @@ export const localStrategy = ()=>{
 //   },
 //   async (accessToken, refreshToken, profile, done)=> {
 //     const newUser = {
-//       facebookId: profile.id,
+//       id: profile.id,
 //       username: profile.displayName,
 //       email: profile._json.email || "",
 //       password: await bcrypt.hash(Date.now().toString(), 10),
