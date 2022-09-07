@@ -36,7 +36,7 @@ export const googleStrategy = ()=>{
   passport.use(new GoogleStrategy({
     clientID: `${process.env.GOOGLE_CLIENT_ID}`,
     clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,
-    callbackURL: "/auth/google/callback"
+    callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/google/callback"
   },
   async (accessToken, refreshToken, profile, done) =>{     
      const newUser = {
@@ -74,7 +74,7 @@ export const linkedinStrategy = ()=>{
   passport.use(new LinkedinStrategy({
     clientID: `${process.env.LINKEDIN_CLIENT_ID}`,
     clientSecret: `${process.env.LINKEDIN_CLIENT_SECRET}`,
-    callbackURL: "/auth/linkedin/callback",
+    callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/linkedin/callback",
     scope: ['r_emailaddress', 'r_liteprofile']
   }, async (accessToken, refreshToken, profile, done)=> {
     const newUser = {
@@ -115,7 +115,7 @@ export const facebookStrategy = ()=>{
   passport.use(new FacebookStrategy({
     clientID: `${process.env.FACEBOOK_CLIENT_ID}`,
     clientSecret: `${process.env.FACEBOOK_CLIENT_SECRET}`,
-    callbackURL: "/auth/facebook/callback",
+    callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/facebook/callback",
     profileFields: ['id', 'emails', 'name', "displayName"]
   },
   async (accessToken, refreshToken, profile, done)=> {
