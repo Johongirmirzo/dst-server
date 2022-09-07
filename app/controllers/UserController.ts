@@ -54,19 +54,25 @@ const UserController = {
     },
     loginSuccess: async (req: Request, res: Response, next: NextFunction)=>{
         const currentUser = req.user as AuthProviderData;
-        console.log("Login Success  above if", currentUser)
+        console.log("Login Success above if", currentUser),
+        
         req.logIn(User, err =>{
-            if(err) return next(err);
-            console.log("Login Success User", User)
-            console.log("Login Success  currentUser", currentUser)
+            if(err){
+                console.log("Login Failed", err.message, err.stack, err);
+                return next(err);
+            }
+            console.log("Login Success via 3rd party auth service", User)
+        })
+
+        if(currentUser){
             const accessToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
             const refreshToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
             console.log("Login Success Current Username:", currentUser.username)
             console.log("Login Success User Token", {id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username})
             res.status(200).send({id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username});
-            
-        })
-        
+        } else {
+            res.status(404).json({message: "Internal Server Error"})
+        }
     },
     logoutUser: (req: Request, res: Response, next: NextFunction)=> {
         req.logout((err)=> {
