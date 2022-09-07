@@ -17,10 +17,11 @@ router.get('/logout', UserController_1.default.logoutUser);
 router.get('/google', passport_1.default.authenticate('google', { scope: ['email', 'profile'] }));
 router.get('/google/callback', passport_1.default.authenticate('google', {
     failureRedirect: "/login/failed",
-    successRedirect: "https://daily-sleep-tracker.netlify.app/login"
+    successRedirect: "https://daily-sleep-tracker.netlify.app/login",
+    session: true
 }));
 router.get('/linkedin', passport_1.default.authenticate('linkedin', { state: 'SOME STATE' }));
-router.get('/linkedin/callback', passport_1.default.authenticate('linkedin', { failureRedirect: "/login/failed", successRedirect: "https://daily-sleep-tracker.netlify.app/login" }));
+router.get('/linkedin/callback', passport_1.default.authenticate('linkedin', { failureRedirect: "/login/failed", successRedirect: "https://daily-sleep-tracker.netlify.app/login", session: true }));
 router.get('/facebook', passport_1.default.authenticate('facebook', { scope: ["email"] }));
-router.get('/facebook/callback', passport_1.default.authenticate('facebook', { failureRedirect: "/login/failed", successRedirect: "https://daily-sleep-tracker.netlify.app/login" }));
+router.get('/facebook/callback', passport_1.default.authenticate('facebook', { failureRedirect: "/login/failed", successRedirect: "https://daily-sleep-tracker.netlify.app/login", session: true }));
 exports.default = router;

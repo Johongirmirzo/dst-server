@@ -55,8 +55,8 @@ export const googleStrategy = ()=>{
         user = await User.create(newUser);
         done(null, user);
        };
-     }catch(err){
-      
+     }catch(err: any){
+      done(err)
       console.log(err)
      } 
   }
@@ -95,7 +95,7 @@ export const linkedinStrategy = ()=>{
         done(null, user);
        };
      }catch(err){
-      
+      done(err)
       console.log(err)
      } 
     // process.nextTick(function () {
@@ -121,7 +121,6 @@ export const facebookStrategy = ()=>{
     callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/facebook/callback",
     profileFields: ['id', 'emails', 'name', "displayName"],
     enableProof: true,
-     
   },
   async (accessToken, refreshToken, profile, done)=> {
     const newUser = {
@@ -140,7 +139,7 @@ export const facebookStrategy = ()=>{
         done(null, user);
        };
      }catch(err){
-      
+      done(err)
       console.log(err)
      } 
   }

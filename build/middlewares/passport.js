@@ -68,6 +68,7 @@ const googleStrategy = () => {
             ;
         }
         catch (err) {
+            done(err);
             console.log(err);
         }
     })));
@@ -106,6 +107,7 @@ const linkedinStrategy = () => {
             ;
         }
         catch (err) {
+            done(err);
             console.log(err);
         }
         // process.nextTick(function () {
@@ -148,6 +150,7 @@ const facebookStrategy = () => {
             ;
         }
         catch (err) {
+            done(err);
             console.log(err);
         }
     })));
