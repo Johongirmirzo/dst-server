@@ -29,7 +29,7 @@ export const localStrategy = ()=>{
     
     passport.deserializeUser(async (id, done)=> {
       User.findById(id, (err: Error, user: UserDocument) => done(err, user))
-      });
+    });
 }
 
 export const googleStrategy = ()=>{
@@ -98,9 +98,7 @@ export const linkedinStrategy = ()=>{
       
       console.log(err)
      } 
-    // process.nextTick(function () {
-    //   return done(null, profile);
-    // });
+    
   }));
 
 
@@ -146,14 +144,10 @@ export const facebookStrategy = ()=>{
 ));
 passport.serializeUser((user: any, done)=>{
   console.log(user, "Passport Facebook Serialize")
-  process.nextTick(()=>{
-    done(null, user.id)
-  });
+  done(null, user._id)
 });
 
 passport.deserializeUser((id, done)=> {
-  process.nextTick(()=>{
-    User.findById(id, (err: Error, user: UserDocument) => done(err, user))
-  })
+  User.findById(id, (err: Error, user: UserDocument) => done(err, user))
 });
 }
