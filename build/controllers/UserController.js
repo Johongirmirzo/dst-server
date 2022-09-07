@@ -49,10 +49,6 @@ const UserController = {
         const currentUser = req.user;
         const accessToken = (0, utils_1.generateToken)({ id: currentUser === null || currentUser === void 0 ? void 0 : currentUser._id, username: currentUser.username }, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`);
         const refreshToken = (0, utils_1.generateToken)({ id: currentUser === null || currentUser === void 0 ? void 0 : currentUser._id, username: currentUser.username }, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
-        console.log("Login Local and req.user", req.user);
-        console.log("Login Local and currentUser", currentUser);
-        console.log("Current Username:", currentUser.username);
-        console.log("User Token", { id: currentUser._id, accessToken, refreshToken, username: currentUser.username });
         res.status(200).json({ id: currentUser._id, accessToken, refreshToken, username: currentUser.username });
     }),
     loginFailed: (req, res) => {
@@ -64,8 +60,6 @@ const UserController = {
         if (currentUser) {
             const accessToken = (0, utils_1.generateToken)({ id: currentUser === null || currentUser === void 0 ? void 0 : currentUser._id, username: currentUser.username }, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`);
             const refreshToken = (0, utils_1.generateToken)({ id: currentUser === null || currentUser === void 0 ? void 0 : currentUser._id, username: currentUser.username }, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
-            console.log("Login Success Current Username:", currentUser.username);
-            console.log("Login Success User Token", { id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username });
             res.status(200).send({ id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username });
         }
         else {

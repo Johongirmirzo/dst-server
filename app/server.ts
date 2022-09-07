@@ -24,6 +24,7 @@ const app = express();
 
 app.use(morgan("dev"))
 app.use(cors({
+    // origin: "http://localhost:3000",
     origin: "https://daily-sleep-tracker.netlify.app",
     methods: "GET,POST,PUT,DELETE",
     credentials: true
@@ -37,6 +38,7 @@ app.use(session({
     secret: `${process.env.SESSION_SECRET}`,
     resave: false,
     saveUninitialized: false,
+    // store: MongoStore.create({ mongoUrl: "mongodb://localhost/dst" }),
     store: MongoStore.create({ mongoUrl: process.env.MONGODB_URL }),
 }))
 

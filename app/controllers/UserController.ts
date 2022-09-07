@@ -7,7 +7,7 @@ const router = Router();
 
 interface AuthProviderData extends UserDocument {
     authProvider: string;
-  }
+}
 
 const UserController = {
     registerUser: async (req: Request, res: Response, next: NextFunction) => {     
@@ -42,10 +42,6 @@ const UserController = {
         const currentUser = req.user as UserDocument; 
         const accessToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
         const refreshToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
-        console.log("Login Local and req.user", req.user);
-        console.log("Login Local and currentUser", currentUser);
-        console.log("Current Username:", currentUser.username)
-        console.log("User Token", {id: currentUser._id, accessToken, refreshToken, username: currentUser.username})
         res.status(200).json({id:currentUser._id, accessToken, refreshToken, username: currentUser.username});
     },
     loginFailed: (req: Request, res: Response)=>{
@@ -57,8 +53,6 @@ const UserController = {
         if(currentUser){
             const accessToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
             const refreshToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
-            console.log("Login Success Current Username:", currentUser.username)
-            console.log("Login Success User Token", {id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username})
             res.status(200).send({id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username});
         } else {
             res.status(404).json({message: "Internal Server Error"})

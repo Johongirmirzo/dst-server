@@ -17,6 +17,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield mongoose_1.default.connect(`${process.env.MONGODB_URL}`);
+        //    await mongoose.connect("mongodb://localhost/dst");
         console.log("Database connection established");
     }
     catch (err) {
