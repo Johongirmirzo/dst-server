@@ -14,15 +14,10 @@ const morgan_1 = __importDefault(require("morgan"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const sleepEntry_1 = __importDefault(require("./routes/sleepEntry"));
 const index_1 = require("./database/index");
-const passport_2 = require("./middlewares/passport");
+const passport_2 = __importDefault(require("./middlewares/passport"));
 const app = (0, express_1.default)();
 // authenticate user through passport strategy
-(function () {
-    (0, passport_2.localStrategy)();
-    (0, passport_2.googleStrategy)();
-    (0, passport_2.linkedinStrategy)();
-    (0, passport_2.facebookStrategy)();
-})();
+(0, passport_2.default)(passport_1.default);
 app.use((0, morgan_1.default)("dev"));
 app.use((0, cors_1.default)({
     origin: "https://daily-sleep-tracker.netlify.app",

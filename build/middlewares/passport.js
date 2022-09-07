@@ -12,16 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.facebookStrategy = exports.linkedinStrategy = exports.googleStrategy = exports.localStrategy = void 0;
 const passport_local_1 = require("passport-local");
 const passport_google_oauth20_1 = require("passport-google-oauth20");
 const passport_linkedin_oauth2_1 = require("passport-linkedin-oauth2");
 const passport_facebook_1 = require("passport-facebook");
-const passport_1 = __importDefault(require("passport"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const User_1 = __importDefault(require("../models/User"));
-const localStrategy = () => {
-    passport_1.default.use(new passport_local_1.Strategy({ usernameField: "email" }, (email, password, done) => __awaiter(void 0, void 0, void 0, function* () {
+const PassportStrategies = (passport) => {
+    // Local Strategy
+    passport.use(new passport_local_1.Strategy({ usernameField: "email" }, (email, password, done) => __awaiter(void 0, void 0, void 0, function* () {
         const user = yield User_1.default.findOne({ email });
         if (!user) {
             return done(null, false, { message: "You are not registered." });
@@ -33,17 +32,15 @@ const localStrategy = () => {
             return done(null, user);
         }
     })));
-    passport_1.default.serializeUser((user, done) => {
+    passport.serializeUser((user, done) => {
         console.log(user, "Passport Local Serialize");
         done(null, user._id);
     });
-    passport_1.default.deserializeUser((id, done) => __awaiter(void 0, void 0, void 0, function* () {
+    passport.deserializeUser((id, done) => __awaiter(void 0, void 0, void 0, function* () {
         User_1.default.findById(id, (err, user) => done(err, user));
     }));
-};
-exports.localStrategy = localStrategy;
-const googleStrategy = () => {
-    passport_1.default.use(new passport_google_oauth20_1.Strategy({
+    //  Google Strategy
+    passport.use(new passport_google_oauth20_1.Strategy({
         clientID: `${process.env.GOOGLE_CLIENT_ID}`,
         clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,
         callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/google/callback"
@@ -71,17 +68,15 @@ const googleStrategy = () => {
             console.log(err);
         }
     })));
-    passport_1.default.serializeUser((user, done) => {
+    passport.serializeUser((user, done) => {
         console.log(user.id, "Passport Google Serializeeee");
         done(null, user._id);
     });
-    passport_1.default.deserializeUser((id, done) => {
+    passport.deserializeUser((id, done) => {
         User_1.default.findById(id, (err, user) => done(err, user));
     });
-};
-exports.googleStrategy = googleStrategy;
-const linkedinStrategy = () => {
-    passport_1.default.use(new passport_linkedin_oauth2_1.Strategy({
+    // Linkeding Strategy
+    passport.use(new passport_linkedin_oauth2_1.Strategy({
         clientID: `${process.env.LINKEDIN_CLIENT_ID}`,
         clientSecret: `${process.env.LINKEDIN_CLIENT_SECRET}`,
         callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/linkedin/callback",
@@ -112,17 +107,15 @@ const linkedinStrategy = () => {
         //   return done(null, profile);
         // });
     })));
-    passport_1.default.serializeUser((user, done) => {
+    passport.serializeUser((user, done) => {
         console.log(user, "Passport Linkedin Serialize");
         done(null, user._id);
     });
-    passport_1.default.deserializeUser((id, done) => {
+    passport.deserializeUser((id, done) => {
         User_1.default.findById(id, (err, user) => done(err, user));
     });
-};
-exports.linkedinStrategy = linkedinStrategy;
-const facebookStrategy = () => {
-    passport_1.default.use(new passport_facebook_1.Strategy({
+    // Facebook Strategy
+    passport.use(new passport_facebook_1.Strategy({
         clientID: `${process.env.FACEBOOK_CLIENT_ID}`,
         clientSecret: `${process.env.FACEBOOK_CLIENT_SECRET}`,
         callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/facebook/callback",
@@ -150,12 +143,12 @@ const facebookStrategy = () => {
             console.log(err);
         }
     })));
-    passport_1.default.serializeUser((user, done) => {
+    passport.serializeUser((user, done) => {
         console.log(user, "Passport Facebook Serialize");
         done(null, user._id);
     });
-    passport_1.default.deserializeUser((id, done) => __awaiter(void 0, void 0, void 0, function* () {
+    passport.deserializeUser((id, done) => __awaiter(void 0, void 0, void 0, function* () {
         User_1.default.findById(id, (err, user) => done(err, user));
     }));
 };
-exports.facebookStrategy = facebookStrategy;
+exports.default = PassportStrategies;
