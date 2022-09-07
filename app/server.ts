@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
-import express, {Request} from "express";
+import express from "express";
 import passport from "passport";
 import session from "express-session";
 import cookieParser from "cookie-parser";
@@ -36,15 +36,14 @@ app.use(session({
     resave: false, 
     saveUninitialized: false,
     store: MongoStore.create({mongoUrl: process.env.MONGODB_URL}),
-    cookie: { secure: false}
-}))
+})) 
+
 app.use(passport.initialize());
 app.use(passport.session());
  
 app.use("/auth", auth)
 app.use("/api/sleepEntry", sleepEntry)
 
- 
 const PORT = process.env.PORT || 5500;
 app.listen(PORT, ()=>{
     connectDB()

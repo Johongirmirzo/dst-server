@@ -108,6 +108,9 @@ const linkedinStrategy = () => {
         catch (err) {
             console.log(err);
         }
+        // process.nextTick(function () {
+        //   return done(null, profile);
+        // });
     })));
     passport_1.default.serializeUser((user, done) => {
         console.log(user, "Passport Linkedin Serialize");
@@ -152,8 +155,8 @@ const facebookStrategy = () => {
         console.log(user, "Passport Facebook Serialize");
         done(null, user._id);
     });
-    passport_1.default.deserializeUser((id, done) => {
+    passport_1.default.deserializeUser((id, done) => __awaiter(void 0, void 0, void 0, function* () {
         User_1.default.findById(id, (err, user) => done(err, user));
-    });
+    }));
 };
 exports.facebookStrategy = facebookStrategy;

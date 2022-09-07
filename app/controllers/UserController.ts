@@ -2,8 +2,7 @@ import {Request, Response, NextFunction, Router} from "express"
 import bcrypt from "bcrypt"
 import User, {UserDocument} from "../models/User"
 import {generateToken} from "../utils";
-import jwt from "jsonwebtoken";
-
+ 
 const router = Router();
 
 interface AuthProviderData extends UserDocument {
@@ -54,16 +53,7 @@ const UserController = {
     },
     loginSuccess: async (req: Request, res: Response, next: NextFunction)=>{
         const currentUser = req.user as AuthProviderData;
-        console.log("Login Success above if", currentUser),
-        
-        req.logIn(User, err =>{
-            if(err){
-                console.log("Login Failed", err.message, err.stack, err);
-                return next(err);
-            }
-            console.log("Login Success via 3rd party auth service", User)
-        })
-
+        console.log("Login Success above if", currentUser)
         if(currentUser){
             const accessToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
             const refreshToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);

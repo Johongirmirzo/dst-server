@@ -29,7 +29,7 @@ export const localStrategy = ()=>{
     
     passport.deserializeUser(async (id, done)=> {
       User.findById(id, (err: Error, user: UserDocument) => done(err, user))
-    });
+      });
 }
 
 export const googleStrategy = ()=>{
@@ -98,7 +98,9 @@ export const linkedinStrategy = ()=>{
       
       console.log(err)
      } 
-    
+    // process.nextTick(function () {
+    //   return done(null, profile);
+    // });
   }));
 
 
@@ -119,6 +121,7 @@ export const facebookStrategy = ()=>{
     callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/facebook/callback",
     profileFields: ['id', 'emails', 'name', "displayName"],
     enableProof: true,
+     
   },
   async (accessToken, refreshToken, profile, done)=> {
     const newUser = {
@@ -144,10 +147,10 @@ export const facebookStrategy = ()=>{
 ));
 passport.serializeUser((user: any, done)=>{
   console.log(user, "Passport Facebook Serialize")
-  done(null, user._id)
+  done(null, user._id);
 });
 
-passport.deserializeUser((id, done)=> {
+passport.deserializeUser(async (id, done)=> {
   User.findById(id, (err: Error, user: UserDocument) => done(err, user))
 });
 }
