@@ -66,10 +66,7 @@ const UserController = {
             res.status(200).send({id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username});
             
         })
-        if(currentUser){
-        } else {
-            res.status(404).json({message: "Internal Server Error"})
-        }
+        
     },
     logoutUser: (req: Request, res: Response, next: NextFunction)=> {
         req.logout((err)=> {
