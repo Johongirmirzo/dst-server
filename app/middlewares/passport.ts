@@ -33,133 +33,133 @@ export const localStrategy = ()=>{
       });
 }
 
-export const googleStrategy = ()=>{
-  passport.use(new GoogleStrategy({
-    clientID: `${process.env.GOOGLE_CLIENT_ID}`,
-    clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,
-    // callbackURL: "http://localhost:8800/auth/google/callback"
-    callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/google/callback"
-  },
-  async (accessToken, refreshToken, profile, done) =>{     
-     const newUser = {
-      googleId: profile.id,
-      username: profile.displayName,
-      email: profile._json.email,
-      password: await bcrypt.hash(Date.now().toString(), 10),
-      authProvider: profile.provider
-     }
-     console.log(profile.id, profile.displayName, "Google Strategy");
-     try {
-       let user = await User.findOne({id: profile.id});
-       if(user){
-        done(null, user);
-       }else {
-        user = await User.create(newUser);
-        done(null, user);
-       };
-     }catch(err: any){
-      done(err)
-      console.log(err)
-     } 
-  }
-));
-passport.serializeUser((user: any, done)=>{
-  console.log(user, "Passport Google Serializeeee"); 
-  done(null, user);
-});
+// export const googleStrategy = ()=>{
+//   passport.use(new GoogleStrategy({
+//     clientID: `${process.env.GOOGLE_CLIENT_ID}`,
+//     clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,
+//     // callbackURL: "http://localhost:8800/auth/google/callback"
+//     callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/google/callback"
+//   },
+//   async (accessToken, refreshToken, profile, done) =>{     
+//      const newUser = {
+//       googleId: profile.id,
+//       username: profile.displayName,
+//       email: profile._json.email,
+//       password: await bcrypt.hash(Date.now().toString(), 10),
+//       authProvider: profile.provider
+//      }
+//      console.log(profile.id, profile.displayName, "Google Strategy");
+//      try {
+//        let user = await User.findOne({id: profile.id});
+//        if(user){
+//         done(null, user);
+//        }else {
+//         user = await User.create(newUser);
+//         done(null, user);
+//        };
+//      }catch(err: any){
+//       done(err)
+//       console.log(err)
+//      } 
+//   }
+// ));
+// passport.serializeUser((user: any, done)=>{
+//   console.log(user, "Passport Google Serializeeee"); 
+//   done(null, user);
+// });
 
-passport.deserializeUser((user: any, done)=> {
-  console.log(user, "Passport Google deserialize")
-  done(null, user);
-  // User.findById(id, (err: Error, user: UserDocument) => done(err, user))
-})
-}
+// passport.deserializeUser((user: any, done)=> {
+//   console.log(user, "Passport Google deserialize")
+//   done(null, user);
+//   // User.findById(id, (err: Error, user: UserDocument) => done(err, user))
+// })
+// }
 
-export const linkedinStrategy = ()=>{
-  passport.use(new LinkedinStrategy({
-    clientID: `${process.env.LINKEDIN_CLIENT_ID}`,
-    clientSecret: `${process.env.LINKEDIN_CLIENT_SECRET}`,
-    // callbackURL: "http://localhost:8800/auth/linkedin/callback",
-    callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/linkedin/callback",
-    scope: ['r_emailaddress', 'r_liteprofile']
-  }, async (accessToken, refreshToken, profile, done)=> {
-    const newUser = {
-      linkedIn: profile.id,
-      username: profile.displayName,
-      email: profile.emails[0].value,
-      password: await bcrypt.hash(Date.now().toString(), 10),
-      authProvider: profile.provider
-     }
-     try {
-       let user = await User.findOne({id: profile.id});
+// export const linkedinStrategy = ()=>{
+//   passport.use(new LinkedinStrategy({
+//     clientID: `${process.env.LINKEDIN_CLIENT_ID}`,
+//     clientSecret: `${process.env.LINKEDIN_CLIENT_SECRET}`,
+//     // callbackURL: "http://localhost:8800/auth/linkedin/callback",
+//     callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/linkedin/callback",
+//     scope: ['r_emailaddress', 'r_liteprofile']
+//   }, async (accessToken, refreshToken, profile, done)=> {
+//     const newUser = {
+//       linkedIn: profile.id,
+//       username: profile.displayName,
+//       email: profile.emails[0].value,
+//       password: await bcrypt.hash(Date.now().toString(), 10),
+//       authProvider: profile.provider
+//      }
+//      try {
+//        let user = await User.findOne({id: profile.id});
        
-       if(user){
-        done(null, user);
-       }else {
-        user = await User.create(newUser);
-        done(null, user);
-       };
-     }catch(err){
-      done(err)
-      console.log(err)
-     } 
-    // process.nextTick(function () {
-    //   return done(null, profile);
-    // });
-  }));
+//        if(user){
+//         done(null, user);
+//        }else {
+//         user = await User.create(newUser);
+//         done(null, user);
+//        };
+//      }catch(err){
+//       done(err)
+//       console.log(err)
+//      } 
+//     // process.nextTick(function () {
+//     //   return done(null, profile);
+//     // });
+//   }));
 
 
-  passport.serializeUser((user: any, done)=>{
-    console.log(user, "Passport Linkedin Serialize")
-    done(null, user);
-  });
+//   passport.serializeUser((user: any, done)=>{
+//     console.log(user, "Passport Linkedin Serialize")
+//     done(null, user);
+//   });
   
-  passport.deserializeUser((user: any, done)=> {
-    console.log(user, "Passport Linkedin DeSerialize")
-    done(null, user);
-    // User.findById(id, (err: Error, user: UserDocument) => done(err, user))
-  });
-}
+//   passport.deserializeUser((user: any, done)=> {
+//     console.log(user, "Passport Linkedin DeSerialize")
+//     done(null, user);
+//     // User.findById(id, (err: Error, user: UserDocument) => done(err, user))
+//   });
+// }
 
-export const facebookStrategy = ()=>{
-  passport.use(new FacebookStrategy({
-    clientID: `${process.env.FACEBOOK_CLIENT_ID}`,
-    clientSecret: `${process.env.FACEBOOK_CLIENT_SECRET}`,
-    // callbackURL: "http://localhost:8800/auth/facebook/callback",
-    callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/facebook/callback",
-    profileFields: ['id', 'emails', 'name', "displayName"],
-    enableProof: true,
-  },
-  async (accessToken, refreshToken, profile, done)=> {
-    const newUser = {
-      facebookId: profile.id,
-      username: profile.displayName,
-      email: profile._json.email || "",
-      password: await bcrypt.hash(Date.now().toString(), 10),
-      authProvider: profile.provider
-     }
-     try {
-       let user = await User.findOne({id: profile.id});
-       if(user){
-        done(null, user);
-       }else {
-        user = await User.create(newUser);
-        done(null, user);
-       };
-     }catch(err){
-      done(err)
-      console.log(err)
-     } 
-  }
-));
-passport.serializeUser((user: any, done)=>{
-  console.log(user, "Passport Facebook Serialize")
-  done(null, user);
-});
+// export const facebookStrategy = ()=>{
+//   passport.use(new FacebookStrategy({
+//     clientID: `${process.env.FACEBOOK_CLIENT_ID}`,
+//     clientSecret: `${process.env.FACEBOOK_CLIENT_SECRET}`,
+//     // callbackURL: "http://localhost:8800/auth/facebook/callback",
+//     callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/facebook/callback",
+//     profileFields: ['id', 'emails', 'name', "displayName"],
+//     enableProof: true,
+//   },
+//   async (accessToken, refreshToken, profile, done)=> {
+//     const newUser = {
+//       facebookId: profile.id,
+//       username: profile.displayName,
+//       email: profile._json.email || "",
+//       password: await bcrypt.hash(Date.now().toString(), 10),
+//       authProvider: profile.provider
+//      }
+//      try {
+//        let user = await User.findOne({id: profile.id});
+//        if(user){
+//         done(null, user);
+//        }else {
+//         user = await User.create(newUser);
+//         done(null, user);
+//        };
+//      }catch(err){
+//       done(err)
+//       console.log(err)
+//      } 
+//   }
+// ));
+// passport.serializeUser((user: any, done)=>{
+//   console.log(user, "Passport Facebook Serialize")
+//   done(null, user);
+// });
 
-passport.deserializeUser(async (user: any, done)=> {
-  console.log(user, "Passport Facebook DeSerialize")
-  done(null, user);
-  // User.findById(id, (err: Error, user: UserDocument) => done(err, user))
-});
-}
+// passport.deserializeUser(async (user: any, done)=> {
+//   console.log(user, "Passport Facebook DeSerialize")
+//   done(null, user);
+//   // User.findById(id, (err: Error, user: UserDocument) => done(err, user))
+// });
+// }

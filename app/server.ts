@@ -10,21 +10,16 @@ import morgan from "morgan"
 import auth from "./routes/auth"
 import sleepEntry from "./routes/sleepEntry";
 import { connectDB } from "./database/index"
-import { localStrategy, googleStrategy, linkedinStrategy, facebookStrategy } from "./middlewares/passport";
+import { localStrategy } from "./middlewares/passport";
 
 const app = express();
 
-// authenticate user through passport strategy
 (function () {
-    // localStrategy();
-    googleStrategy();
-    linkedinStrategy();
-    facebookStrategy();
+    localStrategy();
 })()
 
 app.use(morgan("dev"))
 app.use(cors({
-    // origin: "http://localhost:3000",
     origin: "https://daily-sleep-tracker.netlify.app",
     methods: "GET,POST,PUT,DELETE",
     credentials: true
@@ -38,7 +33,6 @@ app.use(session({
     secret: `${process.env.SESSION_SECRET}`,
     resave: false,
     saveUninitialized: false,
-    // store: MongoStore.create({ mongoUrl: "mongodb://localhost/dst" }),
     store: MongoStore.create({ mongoUrl: process.env.MONGODB_URL }),
 }))
 

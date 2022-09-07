@@ -47,17 +47,17 @@ const UserController = {
     loginFailed: (req: Request, res: Response)=>{
         res.status(401).json({error: true, message: "Log in Failure"})
     },
-    loginSuccess: async (req: Request, res: Response, next: NextFunction)=>{
-        const currentUser = req.user as AuthProviderData;
-        console.log("Login Success above if", currentUser)
-        if(currentUser){
-            const accessToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
-            const refreshToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
-            res.status(200).send({id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username});
-        } else {
-            res.status(404).json({message: "Internal Server Error"})
-        }
-    },
+    // loginSuccess: async (req: Request, res: Response, next: NextFunction)=>{
+    //     const currentUser = req.user as AuthProviderData;
+    //     console.log("Login Success above if", currentUser)
+    //     if(currentUser){
+    //         const accessToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
+    //         const refreshToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
+    //         res.status(200).send({id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username});
+    //     } else {
+    //         res.status(404).json({message: "Internal Server Error"})
+    //     }
+    // },
     logoutUser: (req: Request, res: Response, next: NextFunction)=> {
         req.logout((err)=> {
           console.log(err, "Logout Error")
