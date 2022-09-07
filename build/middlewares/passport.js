@@ -38,14 +38,7 @@ const localStrategy = () => {
         done(null, user._id);
     });
     passport_1.default.deserializeUser((id, done) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            // console.log(id, "Passport Local Deserialize");
-            const user = yield User_1.default.findById(id);
-            done(null, user);
-        }
-        catch (err) {
-            done(err, false);
-        }
+        User_1.default.findById(id, (err, user) => done(err, user));
     }));
 };
 exports.localStrategy = localStrategy;
@@ -53,7 +46,7 @@ const googleStrategy = () => {
     passport_1.default.use(new passport_google_oauth20_1.Strategy({
         clientID: `${process.env.GOOGLE_CLIENT_ID}`,
         clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,
-        callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/google/callback"
+        callbackURL: "/auth/google/callback"
     }, (accessToken, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
         const newUser = {
             id: profile.id,
@@ -82,23 +75,16 @@ const googleStrategy = () => {
         console.log(user._id, "Passport Google Serializeeee");
         done(null, user._id);
     });
-    passport_1.default.deserializeUser((id, done) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            console.log(id, "Passport Google Deserialize");
-            const user = yield User_1.default.findById(id);
-            done(null, user);
-        }
-        catch (err) {
-            done(err, false);
-        }
-    }));
+    passport_1.default.deserializeUser((id, done) => {
+        User_1.default.findById(id, (err, user) => done(err, user));
+    });
 };
 exports.googleStrategy = googleStrategy;
 const linkedinStrategy = () => {
     passport_1.default.use(new passport_linkedin_oauth2_1.Strategy({
         clientID: `${process.env.LINKEDIN_CLIENT_ID}`,
         clientSecret: `${process.env.LINKEDIN_CLIENT_SECRET}`,
-        callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/linkedin/callback",
+        callbackURL: "/auth/linkedin/callback",
         scope: ['r_emailaddress', 'r_liteprofile']
     }, (accessToken, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
         const newUser = {
@@ -129,23 +115,16 @@ const linkedinStrategy = () => {
     passport_1.default.serializeUser((user, done) => {
         done(null, user._id);
     });
-    passport_1.default.deserializeUser((id, done) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            console.log(id, "Linkedin Local Deserialize");
-            const user = yield User_1.default.findById(id);
-            done(null, user);
-        }
-        catch (err) {
-            done(err, false);
-        }
-    }));
+    passport_1.default.deserializeUser((id, done) => {
+        User_1.default.findById(id, (err, user) => done(err, user));
+    });
 };
 exports.linkedinStrategy = linkedinStrategy;
 const facebookStrategy = () => {
     passport_1.default.use(new passport_facebook_1.Strategy({
         clientID: `${process.env.FACEBOOK_CLIENT_ID}`,
         clientSecret: `${process.env.FACEBOOK_CLIENT_SECRET}`,
-        callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/facebook/callback",
+        callbackURL: "/auth/facebook/callback",
         profileFields: ['id', 'emails', 'name', "displayName"]
     }, (accessToken, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
         const newUser = {
@@ -174,13 +153,7 @@ const facebookStrategy = () => {
         done(null, user._id);
     });
     passport_1.default.deserializeUser((id, done) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            const user = yield User_1.default.findById(id);
-            done(null, user);
-        }
-        catch (err) {
-            done(err, false);
-        }
+        User_1.default.findById(id, (err, user) => done(err, user));
     }));
 };
 exports.facebookStrategy = facebookStrategy;

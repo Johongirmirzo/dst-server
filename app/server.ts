@@ -23,7 +23,7 @@ const app = express();
  
 app.use(cors());
 // app.use(cors({
-//     origin: "https://daily-sleep-tracker.netlify.app",
+//     origin: "http://localhost:3000",
 //     methods: "GET,POST,PUT,DELETE",
 //     credentials: true
 // }));
@@ -48,5 +48,5 @@ app.use("/api/sleepEntry", sleepEntry)
 const PORT = process.env.PORT || 5500;
 app.listen(PORT, ()=>{
     connectDB()
-    console.log(`Server is listening at port ${PORT}`);
+    console.log(`Server  is listening at port ${PORT}`);
 })

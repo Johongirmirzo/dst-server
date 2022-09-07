@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 const router = Router();
 
 interface AuthProviderData extends UserDocument {
-    displayName: string;
+    authProvider: string;
   }
 
 const UserController = {
@@ -22,8 +22,7 @@ const UserController = {
             const userDuplicate = await User.findOne({username});
             if(userDuplicate){
                 return res.send(["Username already exists"])
-            }
-    
+            }   
             const emailDuplicate = await User.findOne({email});
             if(emailDuplicate){
                 return res.send(["Email already exists"])
@@ -37,17 +36,17 @@ const UserController = {
             })
             res.status(201).json({message: "User is successfully created"})  
         }catch(err){
-            next(err)
+           return next(err)
         }
     },
     loginUser: async (req: Request, res: Response) => {
         const currentUser = req.user as UserDocument; 
         const accessToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
         const refreshToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
-        console.log("Login Success and req.user", req.user);
-        console.log("Login Success and currentUser", currentUser);
+        console.log("Login Local and req.user", req.user);
+        console.log("Login Local and currentUser", currentUser);
         console.log("Current Username:", currentUser.username)
-        console.log("User Token", {id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username})
+        console.log("User Token", {id: currentUser._id, accessToken, refreshToken, username: currentUser.username})
         res.status(200).json({id:currentUser._id, accessToken, refreshToken, username: currentUser.username});
     },
     loginFailed: (req: Request, res: Response)=>{

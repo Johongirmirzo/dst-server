@@ -21,19 +21,14 @@ export const localStrategy = ()=>{
             return done(null, user);
         }
     }));
+ 
     passport.serializeUser((user: any, done)=>{
       console.log(user._id, user, "Passport Local Serialize")
       done(null, user._id);
     });
     
     passport.deserializeUser(async (id, done)=> {
-      try {
-          // console.log(id, "Passport Local Deserialize");
-          const user = await User.findById(id);
-          done(null, user);
-        }catch(err){
-          done(err, false)
-        }
+      User.findById(id, (err: Error, user: UserDocument) => done(err, user))
       });
 }
 
@@ -41,7 +36,7 @@ export const googleStrategy = ()=>{
   passport.use(new GoogleStrategy({
     clientID: `${process.env.GOOGLE_CLIENT_ID}`,
     clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,
-    callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/google/callback"
+    callbackURL: "/auth/google/callback"
   },
   async (accessToken, refreshToken, profile, done) =>{     
      const newUser = {
@@ -70,22 +65,16 @@ passport.serializeUser((user: any, done)=>{
   done(null, user._id);
 });
 
-passport.deserializeUser(async (id, done)=> {
-  try {
-    console.log(id, "Passport Google Deserialize");
-    const user = await User.findById(id);
-    done(null, user);
-  }catch(err){
-    done(err, false)
-  }
-});
+passport.deserializeUser((id, done)=> {
+  User.findById(id, (err: Error, user: UserDocument) => done(err, user))
+})
 }
 
 export const linkedinStrategy = ()=>{
   passport.use(new LinkedinStrategy({
     clientID: `${process.env.LINKEDIN_CLIENT_ID}`,
     clientSecret: `${process.env.LINKEDIN_CLIENT_SECRET}`,
-    callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/linkedin/callback",
+    callbackURL: "/auth/linkedin/callback",
     scope: ['r_emailaddress', 'r_liteprofile']
   }, async (accessToken, refreshToken, profile, done)=> {
     const newUser = {
@@ -117,14 +106,8 @@ export const linkedinStrategy = ()=>{
     done(null, user._id);
   });
   
-  passport.deserializeUser(async (id, done)=> {
-    try {
-      console.log(id, "Linkedin Local Deserialize");
-      const user = await User.findById(id);
-      done(null, user);
-    }catch(err){
-      done(err, false)
-    }
+  passport.deserializeUser((id, done)=> {
+    User.findById(id, (err: Error, user: UserDocument) => done(err, user))
   });
 }
 
@@ -132,7 +115,7 @@ export const facebookStrategy = ()=>{
   passport.use(new FacebookStrategy({
     clientID: `${process.env.FACEBOOK_CLIENT_ID}`,
     clientSecret: `${process.env.FACEBOOK_CLIENT_SECRET}`,
-    callbackURL: "https://daily-sleep-trackker.herokuapp.com/auth/facebook/callback",
+    callbackURL: "/auth/facebook/callback",
     profileFields: ['id', 'emails', 'name', "displayName"]
   },
   async (accessToken, refreshToken, profile, done)=> {
@@ -161,11 +144,6 @@ passport.serializeUser((user: any, done)=>{
 });
 
 passport.deserializeUser(async (id, done)=> {
-  try {
-    const user = await User.findById(id);
-    done(null, user);
-  }catch(err){
-    done(err, false)
-  }
+  User.findById(id, (err: Error, user: UserDocument) => done(err, user))
 });
 }
