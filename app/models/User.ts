@@ -11,9 +11,6 @@ export interface UserDocument extends mongoose.Document {
 
 const UserSchema = new mongoose.Schema({
     id: String,
-    googleId: String,
-    facebookId: String,
-    linkedinId: String,
     authProvider: String,
     username: {
         type: String,

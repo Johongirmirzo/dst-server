@@ -16,7 +16,7 @@ const app = express();
 
 // authenticate user through passport strategy
 (function () {
-    localStrategy();
+    // localStrategy();
     googleStrategy();
     linkedinStrategy();
     facebookStrategy();

@@ -18,7 +18,7 @@ const passport_2 = require("./middlewares/passport");
 const app = (0, express_1.default)();
 // authenticate user through passport strategy
 (function () {
-    (0, passport_2.localStrategy)();
+    // localStrategy();
     (0, passport_2.googleStrategy)();
     (0, passport_2.linkedinStrategy)();
     (0, passport_2.facebookStrategy)();
