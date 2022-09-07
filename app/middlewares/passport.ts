@@ -23,7 +23,7 @@ export const localStrategy = ()=>{
     }));
  
     passport.serializeUser((user: any, done)=>{
-      console.log(user._id, user, "Passport Local Serialize")
+      console.log(user, "Passport Local Serialize")
       done(null, user._id);
     });
     
@@ -56,12 +56,13 @@ export const googleStrategy = ()=>{
         done(null, user);
        };
      }catch(err){
+      
       console.log(err)
      } 
   }
 ));
 passport.serializeUser((user: any, done)=>{
-  console.log(user._id, "Passport Google Serializeeee");
+  console.log(user.id, "Passport Google Serializeeee");
   done(null, user._id);
 });
 
@@ -94,6 +95,7 @@ export const linkedinStrategy = ()=>{
         done(null, user);
        };
      }catch(err){
+      
       console.log(err)
      } 
     // process.nextTick(function () {
@@ -103,6 +105,7 @@ export const linkedinStrategy = ()=>{
 
 
   passport.serializeUser((user: any, done)=>{
+    console.log(user, "Passport Linkedin Serialize")
     done(null, user._id);
   });
   
@@ -135,11 +138,13 @@ export const facebookStrategy = ()=>{
         done(null, user);
        };
      }catch(err){
+      
       console.log(err)
      } 
   }
 ));
 passport.serializeUser((user: any, done)=>{
+  console.log(user, "Passport Facebook Serialize")
   done(null, user._id);
 });
 

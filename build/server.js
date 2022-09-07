@@ -8,8 +8,9 @@ dotenv_1.default.config();
 const express_1 = __importDefault(require("express"));
 const passport_1 = __importDefault(require("passport"));
 const express_session_1 = __importDefault(require("express-session"));
-const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const connect_mongo_1 = __importDefault(require("connect-mongo"));
+const cors_1 = __importDefault(require("cors"));
+const morgan_1 = __importDefault(require("morgan"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const sleepEntry_1 = __importDefault(require("./routes/sleepEntry"));
 const index_1 = require("./database/index");
@@ -22,26 +23,20 @@ const app = (0, express_1.default)();
     (0, passport_2.linkedinStrategy)();
     (0, passport_2.facebookStrategy)();
 })();
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
-    next();
-});
-// app.use(cors());
-// app.use(cors({
-//     origin: "http://localhost:3000",
-//     methods: "GET,POST,PUT,DELETE",
-//     credentials: true
-// }));
+app.use((0, morgan_1.default)("dev"));
+app.use((0, cors_1.default)({
+    origin: "https://daily-sleep-tracker.netlify.app",
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true
+}));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
-app.use((0, cookie_parser_1.default)());
 app.use((0, express_session_1.default)({
     secret: `${process.env.SESSION_SECRET}`,
     resave: false,
     saveUninitialized: false,
-    store: connect_mongo_1.default.create({ mongoUrl: process.env.MONGODB_URL })
+    store: connect_mongo_1.default.create({ mongoUrl: process.env.MONGODB_URL }),
+    cookie: { secure: false }
 }));
 app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
@@ -50,5 +45,5 @@ app.use("/api/sleepEntry", sleepEntry_1.default);
 const PORT = process.env.PORT || 5500;
 app.listen(PORT, () => {
     (0, index_1.connectDB)();
-    console.log(`Server  is listening at port ${PORT}`);
+    console.log(`Server is listening at port ${PORT}`);
 });

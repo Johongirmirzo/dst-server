@@ -54,18 +54,23 @@ const UserController = {
     },
     loginSuccess: async (req: Request, res: Response)=>{
         const currentUser = req.user as AuthProviderData;
-        const accessToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
-        const refreshToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
-        console.log("Login Success and req.user", req.user);
-        console.log("Login Success and currentUser", currentUser);
-        console.log("Current Username:", currentUser.username)
-        console.log("User Token", {id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username})
-        res.status(200).json({id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username});
+        console.log("Login Success above if", currentUser)
+        if(currentUser){
+            const accessToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
+            const refreshToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
+            console.log("Login Success Current Username:", currentUser.username)
+            console.log("Login Success User Token", {id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username})
+            res.status(200).send({id: currentUser._id, accessToken, refreshToken, authProvider: currentUser.authProvider, username: currentUser.username});
+        } else {
+            res.status(404).json({message: "Internal Server Error"})
+        }
     },
     logoutUser: (req: Request, res: Response, next: NextFunction)=> {
         req.logout((err)=> {
           console.log(err, "Logout Error")
           if (err) return next(err);
+          console.log(req.session)
+          
           res.status(200).send("Successfully Logout");
         });
     }

@@ -34,7 +34,7 @@ const localStrategy = () => {
         }
     })));
     passport_1.default.serializeUser((user, done) => {
-        console.log(user._id, user, "Passport Local Serialize");
+        console.log(user, "Passport Local Serialize");
         done(null, user._id);
     });
     passport_1.default.deserializeUser((id, done) => __awaiter(void 0, void 0, void 0, function* () {
@@ -72,7 +72,7 @@ const googleStrategy = () => {
         }
     })));
     passport_1.default.serializeUser((user, done) => {
-        console.log(user._id, "Passport Google Serializeeee");
+        console.log(user.id, "Passport Google Serializeeee");
         done(null, user._id);
     });
     passport_1.default.deserializeUser((id, done) => {
@@ -113,6 +113,7 @@ const linkedinStrategy = () => {
         // });
     })));
     passport_1.default.serializeUser((user, done) => {
+        console.log(user, "Passport Linkedin Serialize");
         done(null, user._id);
     });
     passport_1.default.deserializeUser((id, done) => {
@@ -150,6 +151,7 @@ const facebookStrategy = () => {
         }
     })));
     passport_1.default.serializeUser((user, done) => {
+        console.log(user, "Passport Facebook Serialize");
         done(null, user._id);
     });
     passport_1.default.deserializeUser((id, done) => __awaiter(void 0, void 0, void 0, function* () {

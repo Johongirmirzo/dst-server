@@ -6,6 +6,7 @@ import session from "express-session";
 import cookieParser from "cookie-parser";
 import MongoStore from "connect-mongo"; 
 import cors from "cors";
+import morgan from "morgan"
 import auth from "./routes/auth"
 import sleepEntry from "./routes/sleepEntry";
 import {connectDB} from "./database/index"
@@ -21,29 +22,21 @@ const app = express();
     facebookStrategy();
 })()
 
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
-    next();
-});
- 
-// app.use(cors());
-// app.use(cors({
-//     origin: "http://localhost:3000",
-//     methods: "GET,POST,PUT,DELETE",
-//     credentials: true
-// }));
+app.use(morgan("dev")) 
+app.use(cors({
+    origin: "https://daily-sleep-tracker.netlify.app",
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true
+}));
  
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
- 
 app.use(session({ 
     secret: `${process.env.SESSION_SECRET}`, 
     resave: false, 
     saveUninitialized: false,
-    store: MongoStore.create({mongoUrl: process.env.MONGODB_URL}) 
+    store: MongoStore.create({mongoUrl: process.env.MONGODB_URL}),
+    cookie: { secure: false}
 }))
 app.use(passport.initialize());
 app.use(passport.session());
@@ -55,5 +48,5 @@ app.use("/api/sleepEntry", sleepEntry)
 const PORT = process.env.PORT || 5500;
 app.listen(PORT, ()=>{
     connectDB()
-    console.log(`Server  is listening at port ${PORT}`);
+    console.log(`Server is listening at port ${PORT}`);
 })
