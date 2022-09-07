@@ -10,14 +10,17 @@ import morgan from "morgan"
 import auth from "./routes/auth"
 import sleepEntry from "./routes/sleepEntry";
 import {connectDB} from "./database/index"
-import PassportStrategy from "./middlewares/passport";
+import {localStrategy, googleStrategy, linkedinStrategy, facebookStrategy} from "./middlewares/passport";
 
 const app = express();
 
 // authenticate user through passport strategy
-
-
-PassportStrategy(passport)
+(function(){
+    localStrategy();
+    googleStrategy();
+    linkedinStrategy();
+    facebookStrategy();
+})()
 
 app.use(morgan("dev")) 
 app.use(cors({
