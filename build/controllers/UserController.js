@@ -60,12 +60,12 @@ const UserController = {
     },
     loginSuccess: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const currentUser = req.user;
-        console.log("Login Success  above if", currentUser);
+        console.log("Login Success above if", currentUser);
         req.logIn(User_1.default, err => {
             if (err)
                 return next(err);
             console.log("Login Success User", User_1.default);
-            console.log("Login Success currentUser", currentUser);
+            console.log("Login Success  currentUser", currentUser);
             const accessToken = (0, utils_1.generateToken)({ id: currentUser === null || currentUser === void 0 ? void 0 : currentUser._id, username: currentUser.username }, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`);
             const refreshToken = (0, utils_1.generateToken)({ id: currentUser === null || currentUser === void 0 ? void 0 : currentUser._id, username: currentUser.username }, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
             console.log("Login Success Current Username:", currentUser.username);

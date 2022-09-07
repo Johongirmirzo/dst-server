@@ -58,7 +58,7 @@ const UserController = {
         req.logIn(User, err =>{
             if(err) return next(err);
             console.log("Login Success User", User)
-            console.log("Login Success currentUser", currentUser)
+            console.log("Login Success  currentUser", currentUser)
             const accessToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.ACCESS_TOKEN_EXPIRATION_TIME}`)
             const refreshToken = generateToken({id: currentUser?._id, username: currentUser.username}, `${process.env.REFRESH_TOKEN_EXPIRATION_TIME}`);
             console.log("Login Success Current Username:", currentUser.username)
